@@ -1,5 +1,3 @@
-$(document).ready(function() {
-
 var topics = ["Dogs", "Fails", "Food Porn", "NBA", "League of Legends", "Jayden Smith", "Silicon Valley"];
 
 // for loop to display topics array one button at a time
@@ -12,18 +10,21 @@ for (var i = 0; i < topics.length; i++) {
 }
 
 // appends new topic to the end of the topics list
-$("#add-topic").on("click", function () {
+$("#add-topic").on("click", function (e) {
+	e.preventDefault();
+	topics.push($("#new-topics").val());
 	var newTopicBtn = $('<div class="btn btn-primary">');
 	var topicName = $("#new-topics").val();
+	newTopicBtn.addClass("topic");
 	newTopicBtn.attr("data-topic-name", topicName);
 	newTopicBtn.text(topicName);
 	$("#topics").append(newTopicBtn);
 });
 
-$(".btn-primary").on("click", function(){
+$(document.body).on("click", ".topic", function(){
 	var topic = $(this).attr("data-topic-name");
 	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=dc6zaTOxFJmzC&limit=10";
-
+	console.log(topic);
 // retrieves JSON object
 	$.ajax({
         url: queryURL,
@@ -42,5 +43,3 @@ $(".btn-primary").on("click", function(){
 			}
 		})
 });
-
-})
