@@ -16,11 +16,12 @@ $("#add-topic").on("click", function () {
 	var newTopicBtn = $('<div class="btn btn-primary">');
 	var topicName = $("#new-topics").val();
 	newTopicBtn.attr("data-topic-name", topicName);
+	newTopicBtn.addClass("topic");
 	newTopicBtn.text(topicName);
 	$("#topics").append(newTopicBtn);
 });
 
-$(".btn-primary").on("click", function(){
+$(document).on("click", ".topic", function(){
 	var topic = $(this).attr("data-topic-name");
 	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=dc6zaTOxFJmzC&limit=10";
 
